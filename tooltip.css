@@ -1,0 +1,338 @@
+.eli5-tooltip {
+  position: absolute;
+  min-width: 280px;
+  max-width: 350px;
+  z-index: 2147483647;
+  border-radius: 14px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+  font-family: 'Segoe UI', Arial, sans-serif;
+  font-size: 15px;
+  background: var(--eli5-bg);
+  color: var(--eli5-fg);
+  padding: 0 0 8px 0;
+  transition: opacity 0.22s cubic-bezier(0.4,0,0.2,1), transform 0.22s cubic-bezier(0.4,0,0.2,1), background 0.18s, color 0.18s;
+  border: none;
+  /* Animation defaults */
+  opacity: 0;
+  transform: translateY(16px);
+  pointer-events: none;
+  resize: none;
+  overflow: visible;
+  box-sizing: border-box;
+  animation: eli5-tooltip-fadein 0.32s cubic-bezier(0.4,0,0.2,1);
+}
+@keyframes eli5-tooltip-fadein {
+  from { opacity: 0; transform: translateY(24px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.eli5-tooltip *, .eli5-tooltip *:before, .eli5-tooltip *:after {
+  box-sizing: border-box;
+}
+.eli5-tooltip.eli5-tooltip--visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+/* Fade-out state for closing */
+.eli5-tooltip.eli5-tooltip--closing {
+  opacity: 0;
+  transform: translateY(16px);
+  pointer-events: none;
+}
+.eli5-tooltip[data-theme="light"] {
+  --eli5-bg: #fff;
+  --eli5-fg: #222;
+  --eli5-border: #e0e0e0;
+  --eli5-shadow: rgba(0,0,0,0.10);
+}
+.eli5-tooltip[data-theme="dark"] {
+  --eli5-bg: #23272f;
+  --eli5-fg: #f3f3f3;
+  --eli5-border: #333a44;
+  --eli5-shadow: rgba(0,0,0,0.32);
+}
+.eli5-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px 0 16px;
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+}
+.eli5-title {
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: 0.5px;
+}
+/* Tooltip button hover effects */
+.eli5-refresh-btn, .eli5-font-dec, .eli5-font-inc, .eli5-theme-toggle, .eli5-close, .eli5-copy, .eli5-listen, .eli5-stop {
+  background: rgba(140, 150, 170, 0.10);
+  border: 1px solid rgba(120,130,150,0.13);
+  font-size: 16px;
+  cursor: pointer;
+  color: var(--eli5-fg);
+  opacity: 0.92;
+  transition: opacity 0.18s, background 0.18s, color 0.18s, box-shadow 0.18s, border 0.18s;
+  border-radius: 9px;
+  outline: none;
+  padding: 6px 12px;
+  margin: 0 4px 0 0;
+  box-shadow: 0 1.5px 6px rgba(80,120,200,0.07), 0 1px 2px rgba(0,0,0,0.04);
+  position: static;
+  width: auto;
+  height: auto;
+  z-index: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  backdrop-filter: blur(1.5px);
+}
+.eli5-refresh-btn:last-child, .eli5-font-inc:last-child, .eli5-stop:last-child {
+  margin-right: 0;
+}
+.eli5-refresh-btn:hover, .eli5-font-dec:hover, .eli5-font-inc:hover, .eli5-theme-toggle:hover, .eli5-close:hover, .eli5-copy:hover, .eli5-listen:hover, .eli5-stop:hover {
+  opacity: 1;
+  background: rgba(120,130,150,0.16);
+  color: var(--eli5-fg);
+  border: 1.5px solid rgba(120,130,150,0.22);
+  box-shadow: 0 3px 12px rgba(80,120,200,0.10), 0 1.5px 4px rgba(0,0,0,0.07);
+}
+.eli5-refresh-btn:active, .eli5-font-dec:active, .eli5-font-inc:active, .eli5-theme-toggle:active, .eli5-close:active, .eli5-copy:active, .eli5-listen:active, .eli5-stop:active {
+  background: rgba(120,130,150,0.22);
+  opacity: 0.98;
+  color: var(--eli5-fg);
+  border: 1.5px solid rgba(120,130,150,0.28);
+  box-shadow: 0 1.5px 6px rgba(80,120,200,0.07), 0 1px 2px rgba(0,0,0,0.04);
+}
+.eli5-body {
+  padding: 10px 18px 0 18px;
+  min-height: 60px;
+  width: 100%;
+  height: auto;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  overflow: auto;
+  box-sizing: border-box;
+}
+.eli5-loading {
+  color: #888;
+  font-style: italic;
+}
+.eli5-explanation {
+  margin-bottom: 4px;
+  line-height: 1.6;
+}
+.eli5-actions {
+  display: flex;
+  gap: 8px;
+  padding: 6px 18px 0 18px;
+  justify-content: flex-end;
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+}
+.eli5-copy, .eli5-listen {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: inherit;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+.eli5-copy:hover, .eli5-listen:hover {
+  opacity: 1;
+}
+.eli5-pointer {
+  position: absolute;
+  left: 32px;
+  top: -12px;
+  width: 22px;
+  height: 12px;
+  overflow: hidden;
+}
+.eli5-pointer::after {
+  content: '';
+  display: block;
+  width: 16px;
+  height: 16px;
+  background: var(--eli5-bg);
+  box-shadow: 0 2px 8px var(--eli5-shadow);
+  transform: rotate(45deg);
+  position: absolute;
+  left: 3px;
+  top: 2px;
+}
+/* Make refresh button look like other action buttons */
+.eli5-refresh-btn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: inherit;
+  opacity: 0.78;
+  transition: opacity 0.18s, background 0.18s, color 0.18s, box-shadow 0.18s;
+  border-radius: 6px;
+  outline: none;
+  padding: 4px 6px;
+  margin-right: 4px;
+  margin-left: 0;
+  box-shadow: none;
+  position: static;
+  width: auto;
+  height: auto;
+  z-index: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.eli5-refresh-btn:hover {
+  opacity: 1;
+  background: rgba(120,120,120,0.08);
+  color: var(--eli5-fg);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+}
+.eli5-refresh-btn:active {
+  background: rgba(120,120,120,0.16);
+  opacity: 0.95;
+}
+.eli5-refresh-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #bbb;
+  border-top: 2px solid var(--eli5-fg);
+  border-radius: 50%;
+  animation: eli5-spin 0.7s linear infinite;
+  margin: auto;
+}
+@keyframes eli5-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+@media (max-width: 500px) {
+  .eli5-tooltip {
+    min-width: 100px;
+    max-width: 98vw;
+    font-size: 14px;
+  }
+  .eli5-header, .eli5-body, .eli5-actions {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+}
+
+.explainit-floating-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: var(--eli5-bg, #fff);
+  color: var(--eli5-fg, #222);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.13);
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s, opacity 0.2s;
+  outline: none;
+  opacity: 0.96;
+}
+.explainit-floating-btn[data-theme="dark"] {
+  background: #23272f;
+  color: #f3f3f3;
+}
+.explainit-floating-btn:hover, .explainit-floating-btn:focus {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+  opacity: 1;
+  background: var(--eli5-border, #f0f0f0);
+} 
+.eli5-font-dec, .eli5-font-inc {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: inherit;
+  opacity: 0.78;
+  transition: opacity 0.18s, background 0.18s, color 0.18s, box-shadow 0.18s;
+  border-radius: 6px;
+  outline: none;
+  padding: 4px 8px;
+  margin-left: 2px;
+  margin-right: 0;
+  box-shadow: none;
+  position: static;
+  width: auto;
+  height: auto;
+  z-index: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.eli5-font-dec:hover, .eli5-font-inc:hover {
+  opacity: 1;
+  background: rgba(120,120,120,0.08);
+  color: var(--eli5-fg);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+}
+.eli5-font-dec:active, .eli5-font-inc:active {
+  background: rgba(120,120,120,0.16);
+  opacity: 0.95;
+} 
+.eli5-refresh-btn.pulse {
+  animation: eli5-pulse 0.38s cubic-bezier(0.4,0,0.2,1);
+}
+@keyframes eli5-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(80,120,200,0.18); }
+  60% { box-shadow: 0 0 0 8px rgba(80,120,200,0.10); }
+  100% { box-shadow: 0 0 0 0 rgba(80,120,200,0.0); }
+}
+
+.eli5-action-animate:active {
+  animation: eli5-bounce 0.22s cubic-bezier(0.4,0,0.2,1);
+}
+@keyframes eli5-bounce {
+  0% { transform: scale(1); }
+  30% { transform: scale(0.93); }
+  60% { transform: scale(1.07); }
+  100% { transform: scale(1); }
+} 
+.eli5-pin-btn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: var(--eli5-fg);
+  opacity: 0.78;
+  transition: opacity 0.18s, background 0.18s, color 0.18s;
+  border-radius: 6px;
+  outline: none;
+  padding: 4px 6px;
+  margin-left: 8px;
+  margin-right: 0;
+  box-shadow: none;
+  position: static;
+  width: auto;
+  height: auto;
+  z-index: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.eli5-pin-btn.pinned {
+  color: #2a8f2a;
+  opacity: 1;
+  background: rgba(42, 143, 42, 0.10);
+}
+.eli5-pin-btn:hover {
+  opacity: 1;
+  background: rgba(120,120,120,0.08);
+  color: var(--eli5-fg);
+}
+.eli5-tooltip.eli5-pinned {
+  box-shadow: 0 6px 32px rgba(42,143,42,0.13), 0 2px 8px rgba(0,0,0,0.10);
+  border: 1.5px solid #2a8f2a;
+} 

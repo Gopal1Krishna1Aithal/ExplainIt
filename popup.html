@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ELI5</title>
+  <style>
+    body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 18px 16px; background: #f8f9fa; color: #222; min-width: 220px; }
+    .logo { font-size: 32px; margin-bottom: 8px; }
+    .name { font-weight: bold; font-size: 18px; margin-bottom: 4px; }
+    .desc { font-size: 14px; color: #444; }
+  </style>
+</head>
+<body>
+  <div class="logo">💡</div>
+  <div class="name">ExplainIt</div>
+  <div class="desc">Select any text on a webpage to get a simple, beginner-friendly explanation with real-world examples.</div>
+  <button id="theme-toggle" style="margin-top:16px;font-size:20px;cursor:pointer;background:none;border:none;outline:none;">🌙</button>
+  <div style="margin-top:12px; display:flex; gap:10px; align-items:center;">
+    <button id="decrease-text" title="Decrease text size" style="font-size:18px; width:32px; height:32px; border-radius:50%; border:none; background:#e0e0e0; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background 0.2s;">A-</button>
+    <button id="increase-text" title="Increase text size" style="font-size:22px; width:32px; height:32px; border-radius:50%; border:none; background:#e0e0e0; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background 0.2s;">A+</button>
+  </div>
+  <script>
+    const toggleBtn = document.getElementById('theme-toggle');
+    function setTheme(isDark) {
+      document.body.style.background = isDark ? '#222' : '#f8f9fa';
+      document.body.style.color = isDark ? '#fff' : '#222';
+      toggleBtn.textContent = isDark ? '☀️' : '🌙';
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    }
+    toggleBtn.addEventListener('click', () => {
+      const isDark = document.body.style.background !== 'rgb(34, 34, 34)';
+      setTheme(isDark);
+    });
+    // On load, set theme from storage
+    const savedTheme = localStorage.getItem('theme');
+    setTheme(savedTheme === 'dark');
+
+    // Text size controls
+    const mainContent = document.body;
+    const incBtn = document.getElementById('increase-text');
+    const decBtn = document.getElementById('decrease-text');
+    const minSize = 12;
+    const maxSize = 28;
+    function setFontSize(size) {
+      mainContent.style.fontSize = size + 'px';
+      localStorage.setItem('fontSize', size);
+    }
+    function getFontSize() {
+      const stored = localStorage.getItem('fontSize');
+      return stored ? parseInt(stored, 10) : 16;
+    }
+    incBtn.addEventListener('click', () => {
+      let size = getFontSize();
+      if (size < maxSize) setFontSize(size + 2);
+    });
+    decBtn.addEventListener('click', () => {
+      let size = getFontSize();
+      if (size > minSize) setFontSize(size - 2);
+    });
+    // On load, set font size
+    setFontSize(getFontSize());
+  </script>
+</body>
+</html> 
