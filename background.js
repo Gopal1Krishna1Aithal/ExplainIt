@@ -1,7 +1,7 @@
 // background.js
 // Handles API requests securely for ExplainIt extension
 
-const OPENAI_API_KEY = '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'; // <-- Replace with your key or use chrome.storage for distribution
+const OPENAI_API_KEY = 'ADD YOUR API KEY HERE'; // <-- Replace with your key or use chrome.storage for distribution
 const ENDPOINT = 'https://api.groq.com/openai/v1/chat/completions';
 
 const SYSTEM_PROMPT = `You're an AI assistant for a Chrome extension that explains technical words in 4 beginner-level sentences. Your style must be: - Clear and friendly (not robotic) - No jargon or advanced terms - End with real-life examples - Final sentence: "Read more about it here → [link]". If the term is ambiguous, choose the most common meaning.`;
